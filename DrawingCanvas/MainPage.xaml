@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:drawable="clr-namespace:DrawingCanvas.Drawables" Loaded="ContentPage_Loaded" SizeChanged="ContentPage_SizeChanged"
+             x:Class="DrawingCanvas.MainPage">
+    <ContentPage.Resources>
+        <drawable:GraphicsDrawable x:Key="drawable" />
+    </ContentPage.Resources>
+
+    <Grid VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Frame x:Name="CanvasRegionBorder" CornerRadius="0" Grid.Column="0" Grid.Row="0" Padding="1, 1, 1, 1" Margin="5, 5, 5, 5">
+            <StackLayout x:Name="CanvasRegion" BackgroundColor="White" Padding="0, 0, 0, 0" Margin="0, 0, 0, 0" >
+                <GraphicsView x:Name="DrawCanvas" Drawable="{StaticResource drawable}"
+                      HeightRequest="300" WidthRequest="400" DragInteraction="DrawCanvas_DragInteraction"
+                      StartInteraction="OnStartInteraction" EndInteraction="OnEndInteraction" MoveHoverInteraction="OnHoverInteraction">
+                </GraphicsView>
+            </StackLayout>
+        </Frame>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Column="0" Grid.Row="1">
+            <Label x:Name="lbl_width" Text="Width" VerticalTextAlignment="Center" HeightRequest="45" VerticalOptions="End"/>
+            <Entry x:Name="editor_width" WidthRequest="25" HeightRequest="45" Margin="0, 0, 20, 0" HorizontalTextAlignment="End" Completed="OnTextCompleted" VerticalTextAlignment="End" />
+            <Label x:Name="lbl_height" Text="Height" VerticalTextAlignment="Center" HeightRequest="45" VerticalOptions="End"/>
+            <Entry x:Name="editor_height" WidthRequest="25" HeightRequest="45" Margin="0, 0, 20, 0" HorizontalTextAlignment="End" Completed="OnTextCompleted" VerticalTextAlignment="End" />
+            <Label x:Name="lbl_radius" Text="Radius" VerticalTextAlignment="Center" HeightRequest="45" VerticalOptions="End"/>
+            <Entry x:Name="editor_radius" WidthRequest="25" HeightRequest="45" Margin="0, 0, 20, 0" HorizontalTextAlignment="End" Completed="OnTextCompleted" VerticalTextAlignment="End" />
+
+            <Label x:Name="lbl_text" Text="Text" VerticalTextAlignment="Center" HeightRequest="45" VerticalOptions="End" Margin="0, 0, 20, 0"/>
+            <Editor x:Name="editor_text" WidthRequest="100" HeightRequest="45" Margin="0, 0, 20, 0" HorizontalTextAlignment="Start" Completed="OnTextCompleted1" VerticalTextAlignment="End"/>
+            <Button x:Name="btn_apply" Text="Apply" FontSize="12" BorderWidth="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Clicked="OnBtnApplyClicked"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Column="0" Grid.Row="2">
+            <Label x:Name="lbl_bordercolor" Text="Border" VerticalTextAlignment="Center" HeightRequest="30" Margin="0, 0, 20, 0" />
+            <Picker x:Name="picker_border" VerticalOptions="Center" Title="" SelectedIndexChanged="picker_border_SelectedIndexChanged" WidthRequest="100">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>White</x:String>
+                        <x:String>Black</x:String>
+                        <x:String>Red</x:String>
+                        <x:String>Yellow</x:String>
+                        <x:String>Blue</x:String>
+                        <x:String>Green</x:String>
+                        <x:String>Orange</x:String>
+                        <x:String>Purple</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label x:Name="lbl_backgroundcolor" Text="Background" VerticalTextAlignment="Center" HeightRequest="30" Margin="0, 0, 20, 0" ></Label>
+            <Picker x:Name="picker_background" VerticalOptions="Center" Title="" SelectedIndexChanged="picker_background_SelectedIndexChanged" WidthRequest="100">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>White</x:String>
+                        <x:String>Black</x:String>
+                        <x:String>Red</x:String>
+                        <x:String>Yellow</x:String>
+                        <x:String>Blue</x:String>
+                        <x:String>Green</x:String>
+                        <x:String>Orange</x:String>
+                        <x:String>Purple</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </StackLayout>
+        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Grid.Column="0" Grid.Row="1">
+            <Label x:Name="lbl_width" Text="Width" VerticalTextAlignment="Center" HeightRequest="30"/>
+            <Entry x:Name="editor_width" WidthRequest="25" HeightRequest="30" Margin="0, 0, 20, 0" HorizontalTextAlignment="End" Completed="OnTextCompleted"/>
+            <Label x:Name="lbl_height" Text="Height" VerticalTextAlignment="Center" HeightRequest="30"/>
+            <Entry x:Name="editor_height" WidthRequest="25" HeightRequest="30" Margin="0, 0, 20, 0" HorizontalTextAlignment="End" Completed="OnTextCompleted"/>
+            <Label x:Name="lbl_radius" Text="Radius" VerticalTextAlignment="Center" HeightRequest="30"/>
+            <Entry x:Name="editor_radius" WidthRequest="25" HeightRequest="30" Margin="0, 0, 20, 0" HorizontalTextAlignment="End" Completed="OnTextCompleted"/>
+
+            <Label x:Name="lbl_text" Text="Text" VerticalTextAlignment="Center" HeightRequest="30"/>
+            <Editor x:Name="editor_text" WidthRequest="100" HeightRequest="30" Margin="0, 0, 20, 0" HorizontalTextAlignment="Start" Completed="OnTextCompleted1"/>
+            <Button x:Name="btn_apply" Text="Apply" FontSize="12" BorderWidth="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Clicked="OnBtnApplyClicked"/>
+
+            <Label x:Name="lbl_bordercolor" Text="Border" VerticalTextAlignment="Center" HeightRequest="30"/>
+            <Picker x:Name="picker_border" VerticalOptions="Center" Title="" SelectedIndexChanged="picker_border_SelectedIndexChanged">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>White</x:String>
+                        <x:String>Black</x:String>
+                        <x:String>Red</x:String>
+                        <x:String>Yellow</x:String>
+                        <x:String>Blue</x:String>
+                        <x:String>Green</x:String>
+                        <x:String>Orange</x:String>
+                        <x:String>Purple</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label x:Name="lbl_backgroundcolor" Text="Background" VerticalTextAlignment="Center" HeightRequest="30"></Label>
+            <Picker x:Name="picker_background" VerticalOptions="Center" Title="" SelectedIndexChanged="picker_background_SelectedIndexChanged">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>White</x:String>
+                        <x:String>Black</x:String>
+                        <x:String>Red</x:String>
+                        <x:String>Yellow</x:String>
+                        <x:String>Blue</x:String>
+                        <x:String>Green</x:String>
+                        <x:String>Orange</x:String>
+                        <x:String>Purple</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+        </StackLayout>-->
+
+        <Grid HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Text="Add Rectangle" FontSize="12" BorderWidth="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" 
+                    Grid.Column="0" Grid.Row="0" Clicked="OnBtnAddRectangleClicked"/>
+            <Button Text="Add Circle" FontSize="12" BorderWidth="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" 
+                    Grid.Column="1" Grid.Row="0" Clicked="OnBtnAddCircleClicked"/>
+            <Button Text="Add bubble" FontSize="12" BorderWidth="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" 
+                    Grid.Column="2" Grid.Row="0" Clicked="OnBtnAddBubbleClicked"/>
+
+            <Button Text="Save" FontSize="12" BorderWidth="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" 
+                    Grid.Column="3" Grid.Row="0" Clicked="OnBtnSaveClicked"/>
+            <Button Text="Load" FontSize="12" BorderWidth="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" 
+                    Grid.Column="4" Grid.Row="0" Clicked="OnBtnLoadClicked"/>
+        </Grid>
+    </Grid>
+</ContentPage>
